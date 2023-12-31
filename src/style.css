@@ -1,0 +1,342 @@
+@font-face {
+    font-family: "Roboto";
+    src: url('../static/fonts/Roboto/Roboto-Regular.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto Light";
+    src: url('../static/fonts/Roboto/Roboto-Thin.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: "Formula";
+    src: url('../static/fonts/formula-condensed/formulacondensed-light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "Formula Light";
+    font-weight: 300;
+    src: url('../static/fonts/formula-condensed/formulacondensed-light.otf') format('opentype');
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0)
+    }
+    0% {
+        transform: rotate(-360deg)
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --orange : #f69f33;
+    --orange2 : rgb(230, 134, 88);
+}
+
+html,body {
+    cursor: none;
+    overflow: hidden;
+    font-family: "Roboto Light";
+}
+
+header {
+    height: fit-content;
+    width: fit-content;
+    width: fit-content;
+    position: fixed;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header button {
+    width: 100px; 
+    height: 100px;
+    border-radius: 100%;
+    border: none;
+    background: transparent;
+    position: relative;
+    cursor: none;
+}
+
+header button svg {
+    fill: transparent;
+    stroke-width: 2px;
+    stroke-dasharray: 250; 
+    stroke-dashoffset: 0px;
+    stroke: var(--orange);
+    position: absolute; 
+    top: 0;
+    left: 0;
+    transition: all 1s;
+    opacity: 0.5;
+}
+
+header button.active svg {
+    stroke-dasharray: 360;
+    stroke-dashoffset: -360px;
+}
+
+header button:hover svg {
+    stroke: white;
+    transform: scale(1.2);
+}
+
+header button circle {
+    transform-origin: center;
+    animation: rotate 4s linear infinite;
+}
+
+header button span {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Roboto';
+    font-size: 10px;
+    color: var(--orange);
+    text-transform: uppercase;
+    transition: all 1s;
+}
+
+header button:hover span {
+    color: white;
+}
+
+main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    transition: opacity 2s;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  
+}
+
+main.hide, header.hide {
+    opacity: 0;
+}
+
+.section {
+    height: 100vh;
+    width: 30vw;
+    margin-right: auto;
+    padding: max(5vw, 30px);
+    display: none;
+    min-width: 200px;
+}
+
+.section.active {
+    display: block;
+}
+
+h2 {
+    font-family: "Formula";
+    font-size: max(6vw, 75px); 
+    letter-spacing: 0.2vw;
+    line-height: 1;
+    color: white;
+    font-weight: 900;
+    max-width: 20vw;
+    text-transform: uppercase;
+    margin-bottom: 0.5vw;
+}
+
+p {
+    color: white;
+    font-size: max(1.1vw, 16px);
+    max-width: 20vw;
+}
+
+.cursor-container {
+    display: none;
+}
+
+.cursor, .cursor-trail {
+    z-index: 2;
+    position: fixed;
+    pointer-events: none;
+}
+
+.cursor {
+    height: 5px;
+    width: 5px;
+    border: solid 1px var(--orange);
+    border-radius: 100%;
+}
+
+.cursor::after {
+    content: 'HOLD';
+    display: block;
+    font-size: 8px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    position: absolute;
+    transform:translate(-50%, 35px);
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.cursor-container.hover .cursor::after {
+    opacity: 1;
+}
+
+.cursor-container.hold .cursor::after {
+    opacity: 0;
+}
+
+.cursor-trail-S {
+    height: 40px;
+    width: 40px;
+    opacity: 0.8;
+    border: solid 1px var(--orange);
+    border-radius: 100%;
+    transition: transform 1s;
+}
+
+.cursor-trail-L {
+    height: 48px;
+    width: 48px;
+    opacity: 0.5;
+    border: solid 1px var(--orange);
+    border-radius: 100%;
+    transition: transform 1s;
+}
+
+.cursor-container.hold .cursor-trail-S {
+    transform: scale(1.5);
+}
+
+.cursor-container.hold .cursor-trail-L {
+    transform: scale(1.1);
+}
+
+.sidebar {
+    position: fixed; 
+    top: 50%;
+    left: 5vw;
+    transform: translateY(-50%);
+    height: 180px;
+    width: 1px;   
+}
+
+.sidebar-bullet {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    transform: translate(-50%, -50%);
+}
+
+.sidebar-bullet:after {
+    content: '';
+    height: 4px; 
+    width: 4px; 
+    position: absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border: solid 1px var(--orange);
+    opacity: 0.5;
+    transition: all 1s;
+}
+
+.sidebar-bullet.visited::after {
+    background-color: var(--orange);
+    opacity: 0.3;
+}
+
+.sidebar-bullet.active::after {
+    opacity: 0.7;
+    background-color: var(--orange);
+}
+
+.sidebar-bullet:hover::after {
+    opacity: 1;
+    transform-origin: center center ;
+    transform: translate(-50%, -50%) rotate(405deg) scale(1.5);
+    background: white;
+}
+
+.sidebar-bullet:nth-of-type(1) {
+    top: 0%;
+}
+.sidebar-bullet:nth-of-type(2) {
+    top: 25%;
+}
+.sidebar-bullet:nth-of-type(3) {
+    top: 50%;
+}
+.sidebar-bullet:nth-of-type(4) {
+    top: 75%;
+}
+.sidebar-bullet:nth-of-type(5) {
+    top: 100%;
+}
+
+.controls {
+    position: fixed;
+    bottom: 5vw;
+    right: 5vw;
+    z-index: 2;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    opacity: 0.5;
+    transition: opacity 0.5s;   
+}
+
+.controls:hover {
+    opacity: 1;
+}
+
+.lil-gui.autoPlace {
+    max-height : calc(100vh - 5vw - 60px);
+    transition: opacity 2s;
+    cursor: default;
+}
+
+.lil-gui.autoPlace.hide {
+    opacity: 0;
+}
+
+@media screen and (max-width: 768px){
+
+    .section {
+        width: 100%;
+    }
+
+    h2 {
+        max-width: unset;
+    }
+
+    p {
+        max-width: unset;
+    }
+
+    .sidebar {
+        top: unset;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) rotate(-0.25turn);
+    }
+  
+    .controls {
+        bottom: 30px;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .cursor-container {
+        opacity: 0;
+    }
+}
